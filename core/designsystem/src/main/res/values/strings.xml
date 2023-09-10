@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Paymenow</string>
+    <string name="title_incoming">IncomingPaiments</string>
+    <!--<string name="title_calendar">Calendar</string>-->
+    <string name="title_history">History</string>
+    <!--<string name="title_activity_test4">Test4</string>-->
+
+    <!--create paiment date-->
+    <string name="lbl_create_new_paiment">Create New Payment</string>
+    <string name="lbl_paiment_title">Title</string>
+    <string name="lbl_paiment_date">Paiment date</string>
+    <string name="lbl_reminder_fraquency">Fraquency of reminder</string>
+    <string name="lbl_select_icon">Select icon</string>
+    <string name="lbl_select_icon_color">Select color for icon</string>
+    <string name="hint_title_of_paiment">Title</string>
+    <string name="btn_submit">Submit</string>
+
+    <!--edit paiment-->
+    <string name="lbl_edit_new_paiment">Edit Paiment</string>
+    <string name="btn_save">Save</string>
+    <string name="hint_description_of_paiment">Description</string>
+    <plurals name="plural_remaining">
+        <item quantity="one">Tomorrow</item>
+        <item quantity="other">%d Days Remaining</item>
+    </plurals>
+
+    <plurals name="plural_ago">
+        <item quantity="one">Yasterday</item>
+        <item quantity="other">%d Days Ago</item>
+    </plurals>
+
+
+</resources>
