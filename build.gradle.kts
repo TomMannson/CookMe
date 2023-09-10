@@ -8,9 +8,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.0.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
-        classpath("de.mannodermaus.gradle.plugins:android-junit5:1.8.2.1")
+        classpath(libs.android.gradlePlugin)
+        classpath(libs.kotlin.gradlePlugin)
+        classpath(libs.mannodermaus.androidJunit)
     }
 }
 
@@ -26,8 +26,8 @@ plugins {
 
 configureDefaults {
     android {
-        minSdk = 26
-        sdk = 33
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        sdk = libs.versions.android.targetSdk.get().toInt()
         composeEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
