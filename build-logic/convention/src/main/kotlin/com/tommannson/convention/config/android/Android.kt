@@ -38,7 +38,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
  * Configure base Kotlin with Android options
  */
 internal fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *>,
     defaults: Defaults = getDefaults()
 ) {
 
@@ -70,9 +70,8 @@ internal fun Project.configureKotlinAndroid(
     }
 }
 
-@Suppress("UnstableApiUsage")
 internal fun Project.configureComposeAndroid(
-    commonExtension: CommonExtension<*, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *>,
     defaults: Defaults = getDefaults()
 ) {
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
@@ -96,9 +95,8 @@ internal fun Project.configureComposeAndroid(
     }
 }
 
-@Suppress("UnstableApiUsage")
 internal fun Project.setupAppSdk(
-    commonExtension: CommonExtension<*, *, ApplicationDefaultConfig, *>,
+    commonExtension: CommonExtension<*, *, ApplicationDefaultConfig, *, *>,
     defaults: Defaults = getDefaults()
 ) {
 
@@ -121,9 +119,8 @@ internal fun Project.setupAppSdk(
     }
 }
 
-@Suppress("UnstableApiUsage")
 internal fun Project.setupLibrarySdk(
-    commonExtension: CommonExtension<*, *, LibraryDefaultConfig, *>,
+    commonExtension: CommonExtension<*, *, LibraryDefaultConfig, *, *>,
     defaults: Defaults = getDefaults()
 ) {
 
@@ -134,7 +131,6 @@ internal fun Project.setupLibrarySdk(
             compileSdk = sdkVersion
             defaultConfig {
                 minSdk = minSdkVersion
-                targetSdk = sdkVersion
 
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             }
@@ -152,7 +148,7 @@ fun Project.getDefaults() =
     requireNotNull(rootProject.extra.get(defaultsKey)) { "defaults required" } as Defaults
 
 
-fun CommonExtension<*, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
+fun CommonExtension<*, *, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
     (this as ExtensionAware).extensions.configure("kotlinOptions", block)
 }
 
