@@ -1,17 +1,6 @@
 @file:Suppress("DSL_SCOPE_VIOLATION")
-
 import com.tommannson.convention.defaults.configureDefaults
 import io.gitlab.arturbosch.detekt.Detekt
-
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-// plugins {
-//    id ("com.android.application") version libs.versions.androidPlugin apply false
-//    id ("com.android.library") version libs.versions.androidPlugin apply false
-//    id ("org.jetbrains.kotlin.android") version libs.versions.kotlin apply false
-// //    id ("com.google.dagger.hilt.android") version "2.42" apply false
-// }
-
-val detektVersion = "1.22.0"
 
 buildscript {
     repositories {
@@ -20,7 +9,7 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:8.0.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
         classpath("de.mannodermaus.gradle.plugins:android-junit5:1.8.2.1")
     }
 }
@@ -33,9 +22,6 @@ plugins {
     alias(libs.plugins.tom.defaults)
     alias(libs.plugins.detekt)
     alias(libs.plugins.kotlin.jvm) apply false
-//    id("org.jetbrains.kotlin.jvm") version "1.8.20" apply false
-//    id("com.android.library") version "8.0.0" apply false
-//    id("org.jetbrains.kotlin.android") version "1.8.20" apply false
 }
 
 configureDefaults {
@@ -55,6 +41,7 @@ detekt {
 
 tasks.withType<Detekt> { dependsOn(":detekt:assemble") }
 
+// TODO TK restore when config for detect will be ready
 //dependencies {
 //    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
 //    detektPlugins(project(":detekt"))

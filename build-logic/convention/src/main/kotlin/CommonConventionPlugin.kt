@@ -12,9 +12,5 @@ class CommonConventionPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
             }
         }
-
-//        with(target) {
-//            androidEx()
-//        }
     }
 }
