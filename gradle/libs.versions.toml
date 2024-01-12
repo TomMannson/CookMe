@@ -1,10 +1,9 @@
 [versions]
-android_minSdk = "26"
-android_targetSdk = "34"
 androidPlugin = "8.1.1"
 androidx-core = "1.12.0"
 androidx-annotation = "1.7.0"
 androidx-appCompat = "1.6.1"
+androidx-constraintLayout = "1.0.1"
 androidx-lifecycle = "2.6.2"
 androidx-activityCompose = "1.7.2"
 checkstyle = "8.37"
@@ -15,6 +14,8 @@ detekt = "1.22.0"
 google-material = "1.2.0-alpha07"
 google-accompanist-systemUiController = "0.27.0"
 google-mlkit-textRecognition = "16.0.0"
+hiltAndroidGradlePlugin = "2.49"
+imagepicker = "2.1"
 jodaTime-core = "2.9.4.1"
 jodaTime-test = "2.9.4"
 jvmTarget = "1.8"
@@ -24,17 +25,24 @@ kotlinKsp = "1.8.22-1.0.11"
 kotlinCoroutines = "1.7.1"
 koltinx-immutableCollections = "0.3.5"
 raamcosta-composeDestinations = "1.9.50"
+retrofit = "2.6.0"
 room = "2.5.2"
 test-junit = "4.13.2"
 test-junit5Android = "1.8.2.1"
 test-androidJunit = "1.1.5"
 test-androidEspresso = "3.5.1"
+timber = "5.0.1"
+wire = "4.9.3"
+org-jetbrains-kotlin-android = "1.9.0"
+material = "1.9.0"
 
 [libraries]
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appCompat" }
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
+androidx-constraintLayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "androidx-constraintLayout" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-datastore = { module = "androidx.datastore:datastore", version = "1.0.0" }
 androidx-lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycleViewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 composeFoundation = { module = "androidx.compose.foundation:foundation" }
@@ -46,11 +54,14 @@ composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
 google-material = { module = "androidx.compose.material3:material3", version.ref = "google-material" }
 google-textRecognition = { module = "com.google.mlkit:text-recognition", version.ref = "google-mlkit-textRecognition" }
 google-accompanistSystemUiController  = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "google-accompanist-systemUiController" }
+hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroidGradlePlugin" }
+imagepicker = { module = "com.github.dhaval2404:imagepicker", version.ref = "imagepicker" }
 jodaTime-jvm = { module = "joda-time:joda-time", version.ref = "jodaTime-test" }
 jodaTime-android = { module = "net.danlew:android.joda", version.ref = "jodaTime-core" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
+kotlinx-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinCoroutines" }
 kotlinx-immutableCollections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "koltinx-immutableCollections" }
 androidx-room-common = { module = "androidx.room:room-common", version.ref = "room"}
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room"}
@@ -58,14 +69,19 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room"}
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room"}
 raamcosta-composeDestinationscCore = { module = "io.github.raamcosta.compose-destinations:core", version.ref = "raamcosta-composeDestinations" }
 raamcosta-composeDestinationscKsp = { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "raamcosta-composeDestinations" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofitConverterScalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }
 test-junit = { module = "junit:junit", version.ref = "test-junit" }
 test-androidJunit = { module = "androidx.test.ext:junit", version.ref = "test-androidJunit" }
 test-androidEspresso = { module = "androidx.test.espresso:espresso-core", version.ref = "test-androidEspresso" }
+log-timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidPlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+square-wire = { group = "com.squareup.wire", name = "wire-gradle-plugin", version.ref = "wire" }
 mannodermaus-androidJunit = { group = "de.mannodermaus.gradle.plugins", name = "android-junit5", version.ref = "test-junit5Android" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [bundles]
 androidx-room = ["androidx-room-runtime", "androidx-room-ktx"]
@@ -87,5 +103,7 @@ tom-library = { id = "tommannson.android.library", version = "0.5" }
 tom-kotlin = { id = "tommannson.kotlin.library", version = "0.5" }
 tom-application = { id = "tommannson.android.application", version = "0.5" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+square-wire = { id = "com.squareup.wire", version.ref = "wire" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 #protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 #secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }

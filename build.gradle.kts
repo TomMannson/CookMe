@@ -7,10 +7,11 @@ buildscript {
         google()
         mavenCentral()
     }
+
     dependencies {
-        classpath(libs.android.gradlePlugin)
-        classpath(libs.kotlin.gradlePlugin)
         classpath(libs.mannodermaus.androidJunit)
+        classpath (libs.hilt.android.gradle.plugin)
+
     }
 }
 
@@ -22,12 +23,15 @@ plugins {
     alias(libs.plugins.tom.defaults)
     alias(libs.plugins.detekt)
     alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.org.jetbrains.kotlin.android) apply false
+    alias(libs.plugins.square.wire) apply false
 }
 
 configureDefaults {
     android {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        sdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk = 26
+        sdk = 34
         composeEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

@@ -1,24 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">CookMe</string>
 
-    <!-- HomeScreen -->
-    <string name="Menu_Recipes_labal">Nasze Przepisy</string>
 
-    <!-- Recipe Details -->
-    <string name="Recipe_Details_Ingredients_labal">Składniki</string>
-    <string name="Recipe_Details_RecipeContent_labal">Przepis</string>
-
-    <!-- Units -->
-    <string name="Recipe_Units_Amount_G">g</string>
-    <string name="Recipe_Units_Amount_ml">g</string>
-    <string name="Recipe_Units_Amount_spoons">Łyżki</string>
-    <string name="Recipe_Units_Amount_glass">Szklanki</string>
-    <string name="Recipe_Units_Amount_number">Porcje</string>
-    <string name="Recipe_Units_Amount_kcal">kcal</string>
-
-    <string name="Recipe_Units_Time_Months">Miesięcy</string>
-    <string name="Recipe_Units_Time_Weeks">Tygodni</string>
-    <string name="Recipe_Units_Time_Days">Dni</string>
-    <string name="Recipe_Units_Time_Hours">Godziny</string>
-    <string name="Recipe_Units_Time_Minutes">Minuty</string>
 </resources>

@@ -17,6 +17,7 @@ dependencies {
     api(libs.composeUi)
     api(libs.google.material)
     api(libs.compose.icons)
+    api(libs.androidx.constraintLayout)
 
     api(libs.androidx.activityCompose)
 

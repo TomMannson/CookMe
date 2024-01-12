@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_package = "com.tommannson.recipe";
+option java_multiple_files = true;
+
+message Recipe {
+  int32 id = 1;
+  string inputImage = 2;
+  string improvedInputImage = 3;
+  string originalContent = 4;
+  string processedContent = 5;
+}
