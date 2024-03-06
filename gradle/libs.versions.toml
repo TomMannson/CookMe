@@ -8,10 +8,10 @@ androidx-lifecycle = "2.6.2"
 androidx-activityCompose = "1.7.2"
 checkstyle = "8.37"
 compose-bom = "2023.09.00"
-compose-bomFull = "androidx.compose:compose-bom:2023.09.00"
+compose-bomFull = "androidx.compose:compose-bom:2024.01.00"
 compose-compiler = "1.5.3"
 detekt = "1.22.0"
-google-material = "1.2.0-alpha07"
+google-material = "1.2.0-rc01"
 google-accompanist-systemUiController = "0.27.0"
 google-mlkit-textRecognition = "16.0.0"
 hiltAndroidGradlePlugin = "2.49"
@@ -24,6 +24,7 @@ kotlin = "1.9.10"
 kotlinKsp = "1.8.22-1.0.11"
 kotlinCoroutines = "1.7.1"
 koltinx-immutableCollections = "0.3.5"
+material = "1.9.0"
 raamcosta-composeDestinations = "1.9.50"
 retrofit = "2.6.0"
 room = "2.5.2"
@@ -32,9 +33,10 @@ test-junit5Android = "1.8.2.1"
 test-androidJunit = "1.1.5"
 test-androidEspresso = "3.5.1"
 timber = "5.0.1"
+voyager = "1.0.0"
 wire = "4.9.3"
 org-jetbrains-kotlin-android = "1.9.0"
-material = "1.9.0"
+
 
 [libraries]
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -63,6 +65,7 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
 kotlinx-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinCoroutines" }
 kotlinx-immutableCollections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "koltinx-immutableCollections" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-room-common = { module = "androidx.room:room-common", version.ref = "room"}
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room"}
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room"}
@@ -75,13 +78,16 @@ test-junit = { module = "junit:junit", version.ref = "test-junit" }
 test-androidJunit = { module = "androidx.test.ext:junit", version.ref = "test-androidJunit" }
 test-androidEspresso = { module = "androidx.test.espresso:espresso-core", version.ref = "test-androidEspresso" }
 log-timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-screenmodel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
+voyager-hiltintegration = { module = "cafe.adriel.voyager:voyager-hilt", version.ref = "voyager" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidPlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 square-wire = { group = "com.squareup.wire", name = "wire-gradle-plugin", version.ref = "wire" }
 mannodermaus-androidJunit = { group = "de.mannodermaus.gradle.plugins", name = "android-junit5", version.ref = "test-junit5Android" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+#material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [bundles]
 androidx-room = ["androidx-room-runtime", "androidx-room-ktx"]

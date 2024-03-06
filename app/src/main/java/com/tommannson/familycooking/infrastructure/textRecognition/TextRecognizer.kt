@@ -1,6 +1,8 @@
 package com.tommannson.familycooking.infrastructure.textRecognition
 
 import android.net.Uri
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
 import android.util.Log
 import androidx.activity.ComponentActivity
 import com.google.mlkit.vision.common.InputImage
@@ -12,9 +14,12 @@ import kotlinx.coroutines.withContext
 import retrofit2.Response
 import timber.log.Timber
 import java.lang.ref.WeakReference
+import java.security.KeyPairGenerator
+import java.security.KeyStore
 import javax.inject.Inject
 import javax.inject.Singleton
 import com.google.mlkit.vision.text.TextRecognition as PlayStoreTextRecognizer
+
 
 interface TextRecognizer {
 

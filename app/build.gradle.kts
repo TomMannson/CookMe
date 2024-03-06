@@ -3,7 +3,6 @@
 plugins {
     alias(libs.plugins.tom.application)
     kotlin("kapt")
-//    id("com.google.devtools.ksp").version("1.9.10-1.0.13")
     id("com.google.dagger.hilt.android")
     id("de.mannodermaus.android-junit5")
     id("io.gitlab.arturbosch.detekt")
@@ -39,6 +38,9 @@ androidApp {
     }
 }
 
+
+val retrofit_version = "2.9.0"
+
 dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.remote)
@@ -53,6 +55,12 @@ dependencies {
     implementation(libs.log.timber)
     implementation ("com.google.dagger:hilt-android:2.49")
     kapt ("com.google.dagger:hilt-compiler:2.49")
+    implementation("io.coil-kt:coil-compose:2.1.0")
+    implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version")
+    implementation (libs.voyager.navigator)
+    implementation (libs.voyager.screenmodel)
+    implementation (libs.voyager.hiltintegration)
 }
 
 kapt {

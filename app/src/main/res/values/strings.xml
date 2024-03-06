@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name" translatable="false">CookMe</string>
+    <string name="btn_loadImage">Wczytaj Obrazek przepisu</string>
+    <string name="btn_createManually">Wprowadź przepis samodzielnie</string>
+    <string name="btn_loadImageAgain">Wczytaj ponownie</string>
+    <string name="btn_confirmLoadedImage">Potwierdź obrazek</string>
 
 
 </resources>

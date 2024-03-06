@@ -16,6 +16,7 @@ import java.lang.ref.WeakReference
 import javax.inject.Inject
 import javax.inject.Singleton
 
+
 interface CameraPicker {
 
     fun ComponentActivity.registerCameraPicker()
@@ -27,6 +28,7 @@ interface CameraPicker {
 internal class CameraPickerImpl @Inject constructor() : CameraPicker {
 
     private val cameraPickerResult = MutableSharedFlow<Uri?>(replay = 1)
+    private val imageRotator = ExifImageRotator()
     private lateinit var cameraPickerLauncher: ActivityResultLauncher<Intent?>
     private lateinit var activity: WeakReference<ComponentActivity>
     override fun ComponentActivity.registerCameraPicker() {
@@ -46,23 +48,26 @@ internal class CameraPickerImpl @Inject constructor() : CameraPicker {
 
     override suspend fun launchCamera(): Uri? {
         return activity.get()?.run {
-            ImagePicker.with(this)
-                .cameraOnly()                    //Crop image(Optional), Check Customization for more option
-                .compress(1024)            //Final image size will be less than 1 MB(Optional)
-                .maxResultSize(
-                    1080,
-                    1080
-                )    //Final image resolution will be less than 1080 x 1080(Optional)
-                .createIntent { intent ->
-                    cameraPickerLauncher.launch(intent)
-                }
+            createAndStartIntent()
             withContext(Dispatchers.Default) {
-                cameraPickerResult.first()
-                    .also {
-                        it.toString()
-                    }
+                val originalLocation = cameraPickerResult.first()
+                    ?.also { cameraPickerResult.resetReplayCache() }
+                    ?: return@withContext null
+
+                imageRotator.rotateFileIfNeeded(this@run, originalLocation)
             }
         }
     }
-}
 
+    private fun ComponentActivity.createAndStartIntent() {
+        ImagePicker.with(this)
+            .compress(1024 * 4)
+            .maxResultSize(
+                1920,
+                1920
+            )    //Final image resolution will be less than 1080 x 1080(Optional)
+            .createIntent { intent ->
+                cameraPickerLauncher.launch(intent)
+            }
+    }
+}

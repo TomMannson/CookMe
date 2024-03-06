@@ -20,6 +20,10 @@ dependencies {
     api(libs.androidx.constraintLayout)
 
     api(libs.androidx.activityCompose)
+    api("androidx.hilt:hilt-navigation-compose:1.1.0")
+    api("androidx.navigation:navigation-fragment-ktx:2.7.6")
+    api("androidx.navigation:navigation-ui-ktx:2.7.6")
+    api("androidx.navigation:navigation-compose:2.7.6")
 
     // export into plugin
     testApi(libs.bundles.test.core)

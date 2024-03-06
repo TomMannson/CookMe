@@ -12,8 +12,8 @@ class InfraProvider @Inject constructor(
     private val textRecognizer: TextRecognizer,
 ) {
 
-    fun register(context: ComponentActivity) {
-        with(cameraPicker) { context.registerCameraPicker() }
-        with(textRecognizer) { context.registerTextRecognition() }
+    fun register(activity: ComponentActivity) {
+        with(cameraPicker) { activity.registerCameraPicker() }
+        with(textRecognizer) { activity.registerTextRecognition() }
     }
 }

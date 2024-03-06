@@ -27,7 +27,9 @@ val resultFlow = MutableStateFlow("")
 
 @Composable
 fun App(modifier: Modifier = Modifier) {
-    CMTheme {
+    CMTheme(
+        androidTheme = false
+    ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

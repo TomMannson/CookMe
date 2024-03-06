@@ -9,11 +9,11 @@ buildscript {
     }
 
     dependencies {
-        classpath(libs.mannodermaus.androidJunit)
+        classpath (libs.mannodermaus.androidJunit)
         classpath (libs.hilt.android.gradle.plugin)
-
     }
 }
+
 
 plugins {
     alias(libs.plugins.tom.platform) apply false
@@ -26,6 +26,8 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.org.jetbrains.kotlin.android) apply false
     alias(libs.plugins.square.wire) apply false
+
+
 }
 
 configureDefaults {

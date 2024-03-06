@@ -8,7 +8,6 @@ typealias TextRecognitionResult = String
 
 fun interface TextRecognitionUseCase : suspend (Uri) -> Result<TextRecognitionResult>
 
-
 internal class DefaultTextRecognitionUseCase @Inject constructor(
     private val textRecognition: TextRecognizer,
 ) : TextRecognitionUseCase {
