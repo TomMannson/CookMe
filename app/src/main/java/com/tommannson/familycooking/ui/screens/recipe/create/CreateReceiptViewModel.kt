@@ -29,7 +29,7 @@ class CreateReceiptViewModel @Inject constructor(
 
     private val recipeInfoSplitter = RecipeInfoSplitter()
     private var operationJob: Job? = null
-    private val _state = MutableStateFlow(ReceiptCreationState())
+    private val _state = MutableStateFlow(ReceiptCreationStateOld())
     val state = _state.asStateFlow()
 
     private val _events = MutableSharedFlow<Unit>()
@@ -45,13 +45,13 @@ class CreateReceiptViewModel @Inject constructor(
     }
 
     fun restartProcess() {
-        _state.update { ReceiptCreationState() }
+        _state.update { ReceiptCreationStateOld() }
     }
 
     fun submitReceipt() {
         //send to WS
         _state.update {
-            ReceiptCreationState(
+            ReceiptCreationStateOld(
                 step = if (it.step is Step.ImageTextExtractionFinished) {
                     val stepInfo = it.step
                     val (recipeText, ingredientsText) = recipeInfoSplitter.splitRecipeInfo(stepInfo.extractedText)
@@ -75,7 +75,7 @@ class CreateReceiptViewModel @Inject constructor(
     fun send(recipeName: String) {
         val step = _state.value.step as? Step.ReceiptCreation ?: return
         _state.update {
-            ReceiptCreationState(
+            ReceiptCreationStateOld(
                 step.copy(progressActive = true)
             )
         }
@@ -93,11 +93,11 @@ class CreateReceiptViewModel @Inject constructor(
 
             _state.update {
                 if (response.isSuccessful) {
-                    ReceiptCreationState(
+                    ReceiptCreationStateOld(
                         Step.Finished
                     )
                 } else {
-                    ReceiptCreationState(
+                    ReceiptCreationStateOld(
                         step.copy(
                             progressActive = false,
                             sendingResult = CreationResult.ERROR
@@ -126,12 +126,12 @@ class CreateReceiptViewModel @Inject constructor(
     }
 
     private fun showError(th: Throwable) {
-        _state.update { oldValue -> ReceiptCreationState(Step.ImageInfoError) }
+        _state.update { oldValue -> ReceiptCreationStateOld(Step.ImageInfoError) }
     }
 
     private fun showImageLoadingProgress() {
         _state.update {
-            ReceiptCreationState(
+            ReceiptCreationStateOld(
                 step = Step.NotInitialized(progressActive = true)
             )
         }
@@ -140,9 +140,9 @@ class CreateReceiptViewModel @Inject constructor(
     private fun showTextProcessingProgress() {
         _state.update {
             if (it.step is Step.ImageProvided) {
-                ReceiptCreationState(step = it.step.copy(progressActive = true))
+                ReceiptCreationStateOld(step = it.step.copy(progressActive = true))
             } else {
-                ReceiptCreationState(step = Step.NotInitialized())
+                ReceiptCreationStateOld(step = Step.NotInitialized())
             }
 
         }
@@ -150,7 +150,7 @@ class CreateReceiptViewModel @Inject constructor(
 
     private fun showLoadedImage(loadedImage: Uri) {
         _state.update { oldValue ->
-            ReceiptCreationState(
+            ReceiptCreationStateOld(
                 Step.ImageProvided(imageUri = loadedImage)
             )
         }
@@ -158,7 +158,7 @@ class CreateReceiptViewModel @Inject constructor(
 
     private fun showTextRecognition(loadedImage: Uri, extractedText: String) {
         _state.update { oldValue ->
-            ReceiptCreationState(
+            ReceiptCreationStateOld(
                 Step.ImageTextExtractionFinished(
                     imageUri = loadedImage,
                     extractedText = extractedText
@@ -178,9 +178,11 @@ class CreateReceiptViewModel @Inject constructor(
     }
 }
 
-data class ReceiptCreationState(
+data class ReceiptCreationStateOld(
     val step: Step = Step.NotInitialized()
-)
+) {
+
+}
 
 sealed interface Step {
     data class NotInitialized(

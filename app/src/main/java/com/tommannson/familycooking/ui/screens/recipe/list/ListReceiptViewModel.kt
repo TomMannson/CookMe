@@ -2,9 +2,9 @@ package com.tommannson.familycooking.ui.screens.recipe.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tommannson.familycooking.ui.screens.recipe.create.Api
+import com.tommannson.familycooking.infrastructure.api.recipeapi.Api
+import com.tommannson.familycooking.infrastructure.api.recipeapi.RecipeDto
 import com.tommannson.familycooking.ui.screens.recipe.create.ProgressInfo
-import com.tommannson.familycooking.ui.screens.recipe.create.RecipeDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
