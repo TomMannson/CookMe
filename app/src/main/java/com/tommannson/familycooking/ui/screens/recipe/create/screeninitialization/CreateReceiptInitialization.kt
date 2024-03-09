@@ -21,6 +21,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.tommannson.familycooking.R
 import com.tommannson.familycooking.ui.screens.recipe.create.state.RecipeCreationState
+import com.tommannson.familycooking.ui.screens.recipe.create.state.steps.ImageLoadingStepData
+import com.tommannson.familycooking.ui.screens.recipe.create.state.steps.InitializationStep
 import com.tommannson.familycooking.ui.state.UiAction
 
 @Composable
@@ -85,7 +87,7 @@ internal fun CreateReceiptInitialization(
 
 @Composable
 internal fun CreateReceiptInitialization2(
-    state: RecipeCreationState.InitializationStep,
+    state: ImageLoadingStepData,
     modifier: Modifier = Modifier,
     onLoadImage: () -> Unit,
     onManualCreation: () -> Unit
@@ -127,7 +129,7 @@ internal fun CreateReceiptInitialization2(
                 linkTo(parent.start, parent.end)
                 width = Dimension.fillToConstraints
             },
-            enabled = state.manualRecipeCreation.availability == UiAction.Availability.Available,
+            enabled = !state.progressActive,
             onClick = onManualCreation
         ) {
             Text(text = stringResource(R.string.btn_createManually))
@@ -138,8 +140,8 @@ internal fun CreateReceiptInitialization2(
                 linkTo(parent.start, parent.end)
                 width = Dimension.fillToConstraints
             },
-            enabled = state.imageLoadingAction.availability == UiAction.Availability.Available,
-            onClick = state::loadImage
+            enabled = !state.progressActive,
+            onClick = onLoadImage
         ) {
             Text(text = stringResource(R.string.btn_loadImage))
         }

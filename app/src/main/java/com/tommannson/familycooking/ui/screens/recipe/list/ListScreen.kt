@@ -19,7 +19,7 @@ class ListScreen : Screen {
                 modifier = Modifier.fillMaxSize(),
                 getState = { viewModel.state },
                 onOpenCreator = { navigator.push(CreateRecipeScreen2()) },
-                onContentLoad = { viewModel.loadRecipes() }
+                onContentLoad = { /*viewModel.loadRecipes()*/ }
             )
         }
     }

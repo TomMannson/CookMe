@@ -12,8 +12,6 @@ import com.tommannson.familycooking.databinding.ReceiptCreationBinding
 
 class ReceiptCreationFragment : Fragment() {
     private var _binding: ReceiptCreationBinding? = null
-
-    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -24,8 +22,6 @@ class ReceiptCreationFragment : Fragment() {
         _binding = ReceiptCreationBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.composeView.apply {
-            // Dispose of the Composition when the view's LifecycleOwner
-            // is destroyed
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 // In Compose world

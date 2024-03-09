@@ -25,6 +25,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.tommannson.familycooking.R
 import com.tommannson.familycooking.ui.screens.recipe.create.state.RecipeCreationState
+import com.tommannson.familycooking.ui.screens.recipe.create.state.steps.RecipeExtractionStep
 
 @Composable
 fun CreateReceiptImageLoaded(
@@ -95,7 +96,7 @@ fun CreateReceiptImageLoaded(
 
 @Composable
 fun CreateReceiptImageLoaded2(
-    state: RecipeCreationState.RecipeExtractionStep,
+    state: RecipeExtractionStep,
     modifier: Modifier = Modifier,
     onLoadImage: () -> Unit,
     onTextProcessing: () -> Unit,
@@ -145,13 +146,13 @@ fun CreateReceiptImageLoaded2(
                 ) {
                 ElevatedButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = state::loadImageAgain
+                    onClick = onLoadImage
                 ) {
                     Text(text = stringResource(R.string.btn_loadImageAgain))
                 }
                 Button(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = state::acceptImage
+                    onClick = onTextProcessing
                 ) {
                     Text(text = stringResource(R.string.btn_confirmLoadedImage))
                 }
