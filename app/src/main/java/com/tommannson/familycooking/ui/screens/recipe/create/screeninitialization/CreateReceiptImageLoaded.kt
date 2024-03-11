@@ -24,9 +24,8 @@ import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.tommannson.familycooking.R
-import com.tommannson.familycooking.ui.screens.recipe.create.approuch4.RecipeCreationState as S
-import com.tommannson.familycooking.ui.screens.recipe.create.state.RecipeCreationState
 import com.tommannson.familycooking.ui.screens.recipe.create.state.steps.RecipeExtractionStep
+import com.tommannson.familycooking.ui.screens.recipe.create.approuch4.RecipeCreationState as S
 
 @Composable
 fun CreateReceiptImageLoaded(
@@ -262,7 +261,7 @@ fun CreateReceiptImageLoaded4(
                 }) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(state.image?.imageLocation)
+                        .data(state.imageLocation)
                         .crossfade(true)
                         .build(),
                     contentDescription = null,

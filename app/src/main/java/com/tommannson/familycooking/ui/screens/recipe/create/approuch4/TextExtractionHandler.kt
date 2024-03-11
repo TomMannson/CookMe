@@ -16,7 +16,7 @@ class TextExtractionHandler @Inject constructor(
     private val cancelledState = MutableStateFlow(false)
 
     suspend fun processImage(uri: Uri) {
-        if (extractionState.value == null && operationStatus.value.started) {
+        if (extractionState.value == null && !operationStatus.value.started) {
             val data = processImage.invoke(uri)
                 .first { it.finished }
 

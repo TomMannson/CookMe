@@ -188,7 +188,7 @@ internal fun TextExtractedInfo4(
             Spacer(modifier = Modifier.height(24.dp))
             Text("Below you can see result of Receipt Extraction ", style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(24.dp))
-            Text(state.extractedText?.extractedText ?: "")
+            Text(state.extractedText ?: "")
             Spacer(modifier = Modifier.height(8.dp))
         }
         Column(

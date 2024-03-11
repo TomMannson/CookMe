@@ -8,17 +8,14 @@ import com.tommannson.familycooking.infrastructure.textRecognition.RecipeInfoSpl
 import com.tommannson.familycooking.ui.base.BaseViewModel
 import com.tommannson.familycooking.ui.base.UIEventHolder
 import com.tommannson.familycooking.ui.screens.recipe.create.aproach3.ScreenAction
-import com.tommannson.familycooking.ui.screens.recipe.create.state.data.ExtractedRecipe
-import com.tommannson.familycooking.ui.screens.recipe.create.state.data.ImageCollection
-import com.tommannson.familycooking.ui.screens.recipe.create.state.data.TextExtraction
 import com.tommannson.familycooking.ui.state.UiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 internal class CreateReceiptViewModel4 @Inject constructor(
@@ -29,7 +26,7 @@ internal class CreateReceiptViewModel4 @Inject constructor(
 
     private val eventHandler = UIEventHolder.getDefault()
     private val recipeInfoSplitter = RecipeInfoSplitter()
-    private val recipeState = MutableStateFlow<RecipeDto?>(null)
+    private val recipeState = MutableStateFlow<RecipeInfoSplitter.SplittedContent?>(null)
 
     val events = eventHandler.events
     val state = combine(
@@ -48,15 +45,9 @@ internal class CreateReceiptViewModel4 @Inject constructor(
                 extractedText = textExtraction,
                 recipe = recipeState
             ),
-            image = selectedUri?.let { ImageCollection(it) },
-            extractedText = textExtraction?.let { TextExtraction(it) },
-            recipeData = recipeState?.let {
-                ExtractedRecipe(
-                    recipeState.name,
-                    recipeState.recipeText!!,
-                    recipeState.ingredientsText!!
-                )
-            },
+            imageLocation = selectedUri,
+            extractedText = textExtraction,
+            recipeData = recipeState,
             imageLoadingAction = imageLoading.mapToUiActionStateVisible(),
             manualCreationAction = imageLoading.mapToUiActionStateVisible(),
             textRecognitionAction = recipeExtraction.mapToUiActionStateVisible(),
@@ -66,6 +57,7 @@ internal class CreateReceiptViewModel4 @Inject constructor(
     }.stateInViewModel(RecipeCreationState.initial())
 
     fun performAction(event: ScreenAction) {
+        Timber.d("Event triggered: $event")
         when (event) {
             is ScreenAction.SelectImage -> selectImage()
             is ScreenAction.ProcessImage -> processImage()
@@ -81,18 +73,18 @@ internal class CreateReceiptViewModel4 @Inject constructor(
 
     private fun processImage() {
         viewModelScope.launch {
-            val image = state.value.image
-            if (image != null) {
-                textExtraction.processImage(image.imageLocation)
+            val imageLocation = state.value.imageLocation
+            if (imageLocation != null) {
+                textExtraction.processImage(imageLocation)
             }
         }
     }
 
     private fun acceptText() {
         viewModelScope.launch {
-            val imageLocation = state.value.image
-            if (imageLocation != null) {
-                textExtraction.processImage(imageLocation.imageLocation)
+            val extractedText = state.value.extractedText
+            if (extractedText != null) {
+                val content = recipeInfoSplitter.splitRecipeInfo(extractedText)
             }
         }
     }
@@ -100,7 +92,8 @@ internal class CreateReceiptViewModel4 @Inject constructor(
     private fun splitRecipe() {
         val extractedText = state.value.extractedText
         if (extractedText != null) {
-            val content = recipeInfoSplitter.splitRecipeInfo(extractedText.extractedText)
+            val recipeData = recipeInfoSplitter.splitRecipeInfo(extractedText)
+            recipeState.value = recipeData
         } else {
             Timber.v("Illegal exported")
         }
@@ -111,9 +104,9 @@ internal class CreateReceiptViewModel4 @Inject constructor(
             val state = state.value
             val dto = RecipeDto(
                 name = recipeName,
-                originalExtractedText = state.extractedText!!.extractedText,
+                originalExtractedText = state.extractedText!!,
                 recipeText = state.recipeData!!.recipeContent,
-                ingredientsText = state.recipeData.ingredientText,
+                ingredientsText = state.recipeData.ingredientsContent,
             )
 
             recipeCreation.processImage(dto)
@@ -123,11 +116,11 @@ internal class CreateReceiptViewModel4 @Inject constructor(
     }
 }
 
-private fun mapToActiveStep(uri: Uri?, extractedText: String?, recipe: RecipeDto?): ActiveStep {
+private fun mapToActiveStep(uri: Uri?, extractedText: String?, recipe: RecipeInfoSplitter.SplittedContent?): ActiveStep {
     return when {
-        uri != null -> ActiveStep.ImageAcceptance
-        extractedText != null -> ActiveStep.RecipeExtraction
         recipe != null -> ActiveStep.RecipeFixing
+        extractedText != null -> ActiveStep.RecipeExtraction
+        uri != null -> ActiveStep.ImageAcceptance
         else -> ActiveStep.ImageSelection
     }
 }

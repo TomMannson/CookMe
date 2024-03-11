@@ -234,9 +234,9 @@ fun RecipeCreation4(
         return
     }
 
-    val (name, setName) = remember { mutableStateOf(state.recipeData.receiptName) }
+    val (name, setName) = remember { mutableStateOf("") }
     val (receiptContent, setReceiptContent) = remember { mutableStateOf(state.recipeData.recipeContent) }
-    val (ingredientText, setIngredientText) = remember { mutableStateOf(state.recipeData.ingredientText) }
+    val (ingredientText, setIngredientText) = remember { mutableStateOf(state.recipeData.ingredientsContent) }
 
     val interactionSource = remember { MutableInteractionSource() }
     val focusManager = LocalFocusManager.current
