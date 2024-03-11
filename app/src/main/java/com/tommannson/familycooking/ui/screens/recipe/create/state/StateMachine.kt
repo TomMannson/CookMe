@@ -20,8 +20,8 @@ class StateMachine(
     private val viewModel: CreateReceiptViewModel2,
 ) {
 
-    private var _currentStep: RecipeCreationState by mutableStateOf(RecipeCreationState.initial())
-    val currentStep: RecipeCreationState get() = _currentStep
+    var currentStep: RecipeCreationState by mutableStateOf(RecipeCreationState.initial())
+        private set
 
     fun loadImage() {
         val step = currentStep as? ImageLoadingStep
@@ -42,7 +42,7 @@ class StateMachine(
     }
 
     private fun onImageLoadingResult(result: Result<Uri>) {
-        val step = (currentStep as? ImageLoadingStep)
+        val step = (currentStep as? InitializationStep)
 
         if (step == null) {
             Timber.v("You are not in loading process")
@@ -53,7 +53,7 @@ class StateMachine(
             ?.let { effect ->
                 when (effect) {
                     is InitializationUiEffect.ImageLoadedCorrectly -> {
-                        _currentStep = (step as InitializationStep).moveToExtractionScreen()
+                        currentStep = step.moveToExtractionScreen()
                     }
 
                     else -> error("Invalid effect: $effect")
@@ -62,7 +62,7 @@ class StateMachine(
     }
 
     private fun onImageProcessingResult(result: Result<String>) {
-        val step = (currentStep as? AcceptingImageStep)
+        val step = (currentStep as? RecipeExtractionStep)
 
         if (step == null) {
             Timber.v("You are not in loading process")
@@ -73,7 +73,7 @@ class StateMachine(
             ?.let { effect ->
                 when (effect) {
                     is AcceptingUiEffect.AcceptanceFinishedCorrectly -> {
-                        _currentStep = (step as RecipeExtractionStep).moveToRecipeFixingScreen()
+                        currentStep = step.moveToRecipeFixingScreen()
                     }
 
                     else -> error("Invalid effect: $effect")

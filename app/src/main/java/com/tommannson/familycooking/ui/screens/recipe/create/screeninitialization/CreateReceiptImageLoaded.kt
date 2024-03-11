@@ -24,6 +24,7 @@ import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.tommannson.familycooking.R
+import com.tommannson.familycooking.ui.screens.recipe.create.approuch4.RecipeCreationState as S
 import com.tommannson.familycooking.ui.screens.recipe.create.state.RecipeCreationState
 import com.tommannson.familycooking.ui.screens.recipe.create.state.steps.RecipeExtractionStep
 
@@ -128,6 +129,140 @@ fun CreateReceiptImageLoaded2(
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(state.data.image?.imageLocation)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.aspectRatio(4 / 3f)
+                )
+            }
+
+            Column(
+                modifier = Modifier.constrainAs(imageLoadingButton) {
+                    linkTo(parent.start, parent.end)
+                    bottom.linkTo(parent.bottom, 16.dp)
+                    width = Dimension.matchParent
+                },
+
+                ) {
+                ElevatedButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onLoadImage
+                ) {
+                    Text(text = stringResource(R.string.btn_loadImageAgain))
+                }
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onTextProcessing
+                ) {
+                    Text(text = stringResource(R.string.btn_confirmLoadedImage))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun CreateReceiptImageLoaded3(
+    state: com.tommannson.familycooking.ui.screens.recipe.create.aproach3.state.RecipeCreationState.RecipeTextExtractionStep,
+    modifier: Modifier = Modifier,
+    onLoadImage: () -> Unit,
+    onTextProcessing: () -> Unit,
+) {
+    BoxWithConstraints(modifier) {
+        val isTablet = if (maxWidth > 400.dp) 100.dp else 0.dp
+        ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+            val (loadedImageRef, imageLoadingButton, titleRef) = createRefs()
+
+            Column(
+                modifier = Modifier
+                    .constrainAs(titleRef) {
+                        top.linkTo(parent.top)
+                        width = Dimension.matchParent
+                    }
+            ) {
+                Spacer(modifier = Modifier.height(24.dp))
+                Text(
+                    "Below you can see loaded image that will be processed by AI",
+                    style = MaterialTheme.typography.headlineMedium
+                )
+            }
+
+            Box(modifier = Modifier
+                .constrainAs(loadedImageRef) {
+                    linkTo(parent.top, parent.bottom)
+                    width = Dimension.fillToConstraints
+                }) {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(state.data.image?.imageLocation)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.aspectRatio(4 / 3f)
+                )
+            }
+
+            Column(
+                modifier = Modifier.constrainAs(imageLoadingButton) {
+                    linkTo(parent.start, parent.end)
+                    bottom.linkTo(parent.bottom, 16.dp)
+                    width = Dimension.matchParent
+                },
+
+                ) {
+                ElevatedButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onLoadImage
+                ) {
+                    Text(text = stringResource(R.string.btn_loadImageAgain))
+                }
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onTextProcessing
+                ) {
+                    Text(text = stringResource(R.string.btn_confirmLoadedImage))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun CreateReceiptImageLoaded4(
+    state: S,
+    modifier: Modifier = Modifier,
+    onLoadImage: () -> Unit,
+    onTextProcessing: () -> Unit,
+) {
+    BoxWithConstraints(modifier) {
+        val isTablet = if (maxWidth > 400.dp) 100.dp else 0.dp
+        ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+            val (loadedImageRef, imageLoadingButton, titleRef) = createRefs()
+
+            Column(
+                modifier = Modifier
+                    .constrainAs(titleRef) {
+                        top.linkTo(parent.top)
+                        width = Dimension.matchParent
+                    }
+            ) {
+                Spacer(modifier = Modifier.height(24.dp))
+                Text(
+                    "Below you can see loaded image that will be processed by AI",
+                    style = MaterialTheme.typography.headlineMedium
+                )
+            }
+
+            Box(modifier = Modifier
+                .constrainAs(loadedImageRef) {
+                    linkTo(parent.top, parent.bottom)
+                    width = Dimension.fillToConstraints
+                }) {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(state.image?.imageLocation)
                         .crossfade(true)
                         .build(),
                     contentDescription = null,

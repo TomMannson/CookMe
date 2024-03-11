@@ -8,6 +8,8 @@ import cafe.adriel.voyager.hilt.getViewModel
 import com.tommannson.familycooking.ui.navigation.NavigatorChild
 import com.tommannson.familycooking.ui.screens.recipe.create.CreateRecipeScreen
 import com.tommannson.familycooking.ui.screens.recipe.create.CreateRecipeScreen2
+import com.tommannson.familycooking.ui.screens.recipe.create.CreateRecipeScreen3
+import com.tommannson.familycooking.ui.screens.recipe.create.CreateRecipeScreen4
 
 class ListScreen : Screen {
     @Composable
@@ -18,7 +20,7 @@ class ListScreen : Screen {
             RecipeListComponent(
                 modifier = Modifier.fillMaxSize(),
                 getState = { viewModel.state },
-                onOpenCreator = { navigator.push(CreateRecipeScreen2()) },
+                onOpenCreator = { navigator.push(CreateRecipeScreen4()) },
                 onContentLoad = { /*viewModel.loadRecipes()*/ }
             )
         }

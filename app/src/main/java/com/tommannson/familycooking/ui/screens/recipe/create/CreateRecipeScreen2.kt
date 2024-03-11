@@ -28,8 +28,8 @@ class CreateRecipeScreen2 : Screen {
                 onItemCreatedCreated = navigator::popUntilRoot,
                 onImageLoading = screenFlowManager::loadImage,
                 onTextRecognitionAction = screenFlowManager::acceptImage,
-                onRestart = {},
-                onImageAccept = {}
+//                onRestart = {},
+//                onImageAccept = {}
             )
         }
     }

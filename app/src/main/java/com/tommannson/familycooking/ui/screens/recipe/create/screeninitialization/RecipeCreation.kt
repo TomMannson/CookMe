@@ -26,7 +26,9 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.tommannson.familycooking.ui.screens.recipe.create.approuch4.RecipeCreationState as S
 import com.tommannson.familycooking.ui.screens.recipe.create.Step
+import com.tommannson.familycooking.ui.screens.recipe.create.aproach3.state.RecipeCreationState
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -39,6 +41,202 @@ fun RecipeCreation(
     val (name, setName) = remember { mutableStateOf(state.receiptName) }
     val (receiptContent, setReceiptContent) = remember { mutableStateOf(state.recipeContent) }
     val (ingredientText, setIngredientText) = remember { mutableStateOf(state.ingredientText) }
+
+    val interactionSource = remember { MutableInteractionSource() }
+    val focusManager = LocalFocusManager.current
+
+    val onSubmitData = remember(name, onSubmit) {
+        { onSubmit(name) }
+    }
+
+    ConstraintLayout(modifier = modifier) {
+        val (buttonBarRef) = createRefs()
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize() // fill the entire window
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    role = Role.Button,
+                    onClick = {
+                        focusManager.clearFocus()
+                    }
+                )
+                .onKeyEvent { keyEvent ->
+                    return@onKeyEvent keyEvent.key == Key.Enter
+                },
+            content = {
+                this.item {
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Text(text = "Recipe Name", style = MaterialTheme.typography.labelMedium)
+                    TextField(
+                        value = name,
+                        onValueChange = setName,
+                        modifier = Modifier
+                            .fillMaxWidth()
+//                    .focusRequester(focusRequester)
+                    )
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Text(text = "Recipe Content", style = MaterialTheme.typography.labelMedium)
+                    TextField(
+                        value = receiptContent,
+                        onValueChange = setReceiptContent,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Text(text = "Ingredients", style = MaterialTheme.typography.labelMedium)
+                    TextField(
+                        value = ingredientText,
+                        onValueChange = setIngredientText,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(100.dp))
+                }
+            }
+        )
+
+        Column(
+            modifier = Modifier
+                .constrainAs(buttonBarRef) {
+                    linkTo(parent.start, parent.end)
+                    bottom.linkTo(parent.bottom, 16.dp)
+                    width = Dimension.matchParent
+
+                }
+//                .navigationBarsPadding() // padding for navigation bar
+//                .imePadding(),
+        ) {
+            ElevatedButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = onRetry
+            ) {
+                Text(text = "Retry")
+            }
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = onSubmitData
+            ) {
+                Text(text = "Submit")
+            }
+        }
+    }
+}
+
+@Composable
+fun RecipeCreation3(
+    state: RecipeCreationState.RecipeSubmittedStep,
+    modifier: Modifier = Modifier,
+    onRetry: () -> Unit,
+    onSubmit: (String) -> Unit,
+) {
+    if (state.data.recipeData == null) {
+        return
+    }
+
+    val (name, setName) = remember { mutableStateOf(state.data.recipeData.receiptName) }
+    val (receiptContent, setReceiptContent) = remember { mutableStateOf(state.data.recipeData.recipeContent) }
+    val (ingredientText, setIngredientText) = remember { mutableStateOf(state.data.recipeData.ingredientText) }
+
+    val interactionSource = remember { MutableInteractionSource() }
+    val focusManager = LocalFocusManager.current
+
+    val onSubmitData = remember(name, onSubmit) {
+        { onSubmit(name) }
+    }
+
+    ConstraintLayout(modifier = modifier) {
+        val (buttonBarRef) = createRefs()
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize() // fill the entire window
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    role = Role.Button,
+                    onClick = {
+                        focusManager.clearFocus()
+                    }
+                )
+                .onKeyEvent { keyEvent ->
+                    return@onKeyEvent keyEvent.key == Key.Enter
+                },
+            content = {
+                this.item {
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Text(text = "Recipe Name", style = MaterialTheme.typography.labelMedium)
+                    TextField(
+                        value = name,
+                        onValueChange = setName,
+                        modifier = Modifier
+                            .fillMaxWidth()
+//                    .focusRequester(focusRequester)
+                    )
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Text(text = "Recipe Content", style = MaterialTheme.typography.labelMedium)
+                    TextField(
+                        value = receiptContent,
+                        onValueChange = setReceiptContent,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Text(text = "Ingredients", style = MaterialTheme.typography.labelMedium)
+                    TextField(
+                        value = ingredientText,
+                        onValueChange = setIngredientText,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(100.dp))
+                }
+            }
+        )
+
+        Column(
+            modifier = Modifier
+                .constrainAs(buttonBarRef) {
+                    linkTo(parent.start, parent.end)
+                    bottom.linkTo(parent.bottom, 16.dp)
+                    width = Dimension.matchParent
+
+                }
+//                .navigationBarsPadding() // padding for navigation bar
+//                .imePadding(),
+        ) {
+            ElevatedButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = onRetry
+            ) {
+                Text(text = "Retry")
+            }
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = onSubmitData
+            ) {
+                Text(text = "Submit")
+            }
+        }
+    }
+}
+
+@Composable
+fun RecipeCreation4(
+    state: S,
+    modifier: Modifier = Modifier,
+    onRetry: () -> Unit,
+    onSubmit: (String) -> Unit,
+) {
+    if (state.recipeData == null) {
+        return
+    }
+
+    val (name, setName) = remember { mutableStateOf(state.recipeData.receiptName) }
+    val (receiptContent, setReceiptContent) = remember { mutableStateOf(state.recipeData.recipeContent) }
+    val (ingredientText, setIngredientText) = remember { mutableStateOf(state.recipeData.ingredientText) }
 
     val interactionSource = remember { MutableInteractionSource() }
     val focusManager = LocalFocusManager.current

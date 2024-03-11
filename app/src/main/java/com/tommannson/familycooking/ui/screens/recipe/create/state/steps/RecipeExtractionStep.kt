@@ -5,6 +5,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.tommannson.familycooking.ui.screens.recipe.create.ProgressInfo
 import com.tommannson.familycooking.ui.screens.recipe.create.state.RecipeCreationState
 import com.tommannson.familycooking.ui.screens.recipe.create.state.UIEffect
 import com.tommannson.familycooking.ui.screens.recipe.create.state.data.CollectedData
@@ -32,7 +33,7 @@ class RecipeExtractionStep(
     override val screenInfo: ScreenProperties = ScreenProperties.initial(),
     textRecognitionActionConfig: UiAction,
     tryAgainActionConfig: UiAction,
-) : RecipeCreationState, Restartable, AcceptingImageStep {
+) : RecipeCreationState, Restartable, AcceptingImageStep, ProgressInfo {
 
     override var data by mutableStateOf(dataConfig)
         private set

@@ -31,7 +31,7 @@ data class UiAction(
 
 
     companion object {
-        fun blockedByDefault() = UiAction(State.Idle, Availability.Blocked)
+        fun blockedByDefault() = UiAction(State.Idle)
         fun activeByDefault() = UiAction(State.Idle, Availability.Available)
     }
 }

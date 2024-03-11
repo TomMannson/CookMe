@@ -9,6 +9,8 @@ fun interface LoadImageUseCase : suspend () -> Result<Uri>
 internal class DefaultLoadImageUseCase @Inject constructor(
     private val cameraPicker: CameraPicker,
 ) : LoadImageUseCase {
+
+
     override suspend fun invoke(): Result<Uri> {
         return try {
             cameraPicker.launchCamera()
@@ -18,6 +20,7 @@ internal class DefaultLoadImageUseCase @Inject constructor(
             Result.failure(ex)
         }
     }
+
 }
 
 

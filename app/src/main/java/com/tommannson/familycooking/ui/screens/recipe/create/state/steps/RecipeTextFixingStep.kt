@@ -4,6 +4,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.tommannson.familycooking.ui.screens.recipe.create.ProgressInfo
 import com.tommannson.familycooking.ui.screens.recipe.create.state.RecipeCreationState
 import com.tommannson.familycooking.ui.screens.recipe.create.state.data.CollectedData
 import com.tommannson.familycooking.ui.state.ScreenProperties
@@ -14,7 +15,7 @@ class RecipeTextFixingStep(
     dataConfig: CollectedData,
     override val screenInfo: ScreenProperties = ScreenProperties.initial(),
     val textRecognitionAction: UiAction,
-) : RecipeCreationState {
+) : RecipeCreationState, ProgressInfo {
 
     override val progressActive: Boolean = false
 
